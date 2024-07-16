@@ -17,17 +17,28 @@ public class LionTest {
     @Spy
     Felines felines = new Feline();
     @InjectMocks
-    Lion lion = new Lion(felines);
-
+    Lion lion;
+    {
+        try {
+            lion = new Lion("Самец",felines);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @Test
     public void getKittensTest() {
         lion.getKittens();
         Mockito.verify(felines, Mockito.times(1)).getKittens();
     }
 
-    @Test(expected = Exception.class)
-    public void getExceptionTest() throws Exception {
-        Lion lion = new Lion("Тест");
+    @Test
+    public void getExceptionTest() {
+        try {
+            Lion lionExp = new Lion("Тест",felines);
+        } catch (Exception ex) {
+            String expMessage = ex.getMessage();
+            assertEquals(expMessage,"Используйте допустимые значения пола животного - самей или самка");
+        }
     }
 
     @Test

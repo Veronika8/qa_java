@@ -1,3 +1,5 @@
+import com.example.Feline;
+import com.example.Felines;
 import com.example.Lion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +27,8 @@ public class LionParameterizedTest {
 
     @Test
     public void doesHaveManeTest() throws Exception {
-        Lion lion = new Lion(sex);
+        Felines felines=new Feline();
+        Lion lion = new Lion(sex,felines);
         boolean hasManeCheck = lion.doesHaveMane();
         assertEquals(hasManeCheck,hasMane);
     }
